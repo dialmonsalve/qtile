@@ -8,6 +8,8 @@ terminal = guess_terminal()
 filemanager = "thunar"
 wlogout = "wlogout"
 
+blender_path = "/home/dialmonsalve/Documentos/blender-version/blender-4.5.1/blender"
+
 sticky_windows = []
 
 
@@ -125,19 +127,19 @@ keys = [
     Key(
         [],
         "XF86AudioMute",
-        lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+        lazy.spawn("pactl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
         desc="Silencio - Mute",
     ),
     Key(
         [],
         "XF86AudioLowerVolume",
-        lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0"),
+        lazy.spawn("pactl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0"),
         desc="Bajar Volumen - Volume down",
     ),
     Key(
         [],
         "XF86AudioRaiseVolume",
-        lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0"),
+        lazy.spawn("pactl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0"),
         desc="Subir Volumen - Volume up",
     ),
     #   Estos con wpctl funcionan con wireplumber
@@ -153,6 +155,24 @@ keys = [
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous"), desc="playerctl"),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next"), desc="playerctl"),
     #   se debe instalar brightnessctl
+    Key(
+        [mod],
+        "m",
+        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+        desc="Silencio - Mute",
+    ),
+    Key(
+        [mod],
+        "minus",  # Tecla -
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+        desc="Bajar Volumen - Volume down",
+    ),
+    Key(
+        [mod],
+        "equal",  # Tecla +
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+        desc="Subir Volumen - Volume up",
+    ),
     Key(
         [],
         "XF86MonBrightnessUp",
@@ -186,6 +206,9 @@ keys = [
         lazy.spawn("rofi -show-icons -show window -theme rounded-green-dark"),
         desc="Spawn a command using a prompt widget",
     ),
+    Key([mod], "b", lazy.spawn(blender_path), desc="Launch Blender"),
+    Key([mod, "mod1"], "b", lazy.spawn("brave-browser"), desc="Launch Brave"),
+    Key([mod, "mod1"], "f", lazy.spawn("firefox-esr"), desc="Launch Firefox"),
 ]
 mouse = [
     Drag(

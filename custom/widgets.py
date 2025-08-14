@@ -88,7 +88,7 @@ class CustomClock(BaseWidget):
         )
 
     def volume(self):
-        return widget.PulseVolume(
+        return widget.Volume(
             foreground=CustomColor.white,
             background=self.background,
             limit_max_volume=True,

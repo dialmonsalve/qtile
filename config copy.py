@@ -85,49 +85,29 @@ for i in groups:
         ]
     )
 layouts = [
-    # layout.TreeTab(
-    #     active_bg=CustomColor.dark_orange,
-    #     bg_color=CustomColor.gray,
-    #     active_fg=CustomColor.white,
-    #     inactive_bg=CustomColor.light_gray,
-    #     inactive_fg=CustomColor.white,
-    #     border_focus=CustomColor.red,
-    #     panel_width=180,
-    #     place_right=False,
-    #     padding_left=20,
-    #     padding_top=20,
-    #     padding_right=20,
-    #     padding_bottom=20,
-    #     margin=[20, 30, 20, 30],
-    #     previous_on_rm_clients=True,
-    #     ratio=0.9,
-    # ),
+    layout.TreeTab(
+        active_bg=CustomColor.dark_orange,
+        bg_color=CustomColor.gray,
+        active_fg=CustomColor.white,
+        inactive_bg=CustomColor.light_gray,
+        inactive_fg=CustomColor.white,
+        panel_width=180,
+        place_right=True,
+    ),
     layout.Columns(
-        margin=2,
+        margin=0,
         border_focus=CustomColor.purple,
         border_normal=CustomColor.dark_gray,
         border_width=3,
-        ratio=0.2,
     ),
-    # layout.MonadTall(
-    #     margin=5,
-    #     border_width=2,
-    #     border_focus=CustomColor.purple,
-    #     border_normal=CustomColor.dark_gray,
-    # ),
-     layout.Max( ),
+    # layout.Max( ),
     ## layout.Stack(num_stacks=2),
     ## layout.Bsp(),
     # layout.Matrix( ),
     # layout.MonadWide( ),
     # layout.Tile(),
-    # layout.Plasma(
-    #     margin=5,
-    #     border_width=2,
-    #     border_focus=CustomColor.purple,
-    #     border_normal=CustomColor.dark_gray,
-    # ),
-    # # layout.MonadTall(),
+    # layout.Plasma(),
+    # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -174,12 +154,6 @@ widget_defaults = {
 }
 
 extension_defaults = widget_defaults.copy()
-
-sidebar_bottom = [
-    widget.TextBox("default config", name="default", foreground=CustomColor.dark_gray),
-    widget.TextBox("Press &lt;M-r&gt; to search", foreground=CustomColor.gray),
-    widget.QuickExit(foreground=CustomColor.gray),
-]
 
 screens = [
     Screen(
@@ -299,7 +273,15 @@ screens = [
             ],  # Borders are magenta
         ),
         bottom=bar.Bar(
-            sidebar_bottom,
+            [
+                widget.TextBox(
+                    "default config", name="default", foreground=CustomColor.dark_gray
+                ),
+                widget.TextBox(
+                    "Press &lt;M-r&gt; to search", foreground=CustomColor.gray
+                ),
+                widget.QuickExit(foreground=CustomColor.gray),
+            ],
             24,
             background=CustomColor.orange,
         ),
@@ -318,9 +300,8 @@ dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
 bring_front_click = False
 floats_kept_above = True
-cursor_warp = (False,)
+cursor_warp = False
 floating_layout = layout.Floating(
-    border_width=2,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
@@ -330,8 +311,7 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-        Match(wm_class="pavucontrol"),
-    ],
+    ]
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
